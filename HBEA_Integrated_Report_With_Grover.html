@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>HBEA_Integrated_Report_With_Grover.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="ai--quantum-security-analysis-of-hbea-integrated-report">AI &amp; Quantum Security Analysis of HBEA (Integrated Report)</h1>
+<p><strong>Author</strong>: Hanna Chang<br>
+<strong>Course</strong>: MADR-CS 281 — Intro to Cryptography and Computer Security<br>
+<strong>Project</strong>: Final Report — Hybrid Block Encryption Algorithm (HBEA)<br>
+<strong>Date</strong>: Spring 2025</p>
+<hr>
+<div style="page-break-after: always;"></div>
+<h2 id="1-algorithm-recap-hbea-structure">1. Algorithm Recap: HBEA Structure</h2>
+<p>HBEA is a custom 256-bit block encryption algorithm designed for educational purposes to explore hybrid cryptographic ideas.</p>
+<h3 id="key-components">Key Components:</h3>
+<ul>
+<li><strong>Key Generation</strong>:
+<ul>
+<li>SHA-256 hash of the user's email.</li>
+<li>Split into eight 32-bit segments, used as subkeys.</li>
+</ul>
+</li>
+<li><strong>Initial Permutation (IP)</strong>:
+<ul>
+<li>Based on the ASCII sum of the email to create a deterministic but user-specific permutation.</li>
+</ul>
+</li>
+<li><strong>Block Processing</strong>:
+<ul>
+<li>Plaintext is chunked into 32-bit blocks.</li>
+<li>Each block undergoes:
+<ul>
+<li><strong>Expansion</strong> (DES-style from 32 to 48 bits).</li>
+<li><strong>S-box substitution</strong> (non-invertible, reduces back to 32 bits).</li>
+<li><strong>XOR with key segment</strong>.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Output Format</strong>: Encrypted binary is converted to hexadecimal.</li>
+<li><strong>Decryption</strong>: Not fully supported due to the non-invertibility of the expansion/S-box steps.</li>
+</ul>
+<hr>
+<h2 id="2-performance--feature-benchmark-hbea-vs-aes-256">2. Performance &amp; Feature Benchmark: HBEA vs AES-256</h2>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>AES-256</th>
+<th>HBEA</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Block Size</td>
+<td>128 bits</td>
+<td>256 bits</td>
+</tr>
+<tr>
+<td>Key Size</td>
+<td>256 bits</td>
+<td>256 bits (from SHA-256 hash)</td>
+</tr>
+<tr>
+<td>Rounds</td>
+<td>14</td>
+<td>1 round (8 segments in parallel)</td>
+</tr>
+<tr>
+<td>Substitution</td>
+<td>AES S-box</td>
+<td>DES-style S-box (8 total)</td>
+</tr>
+<tr>
+<td>Permutation</td>
+<td>Fixed permutation</td>
+<td>Email-based dynamic permutation</td>
+</tr>
+<tr>
+<td>Decryption</td>
+<td>Fully reversible</td>
+<td>Partially (non-invertible S-boxes/expansion)</td>
+</tr>
+<tr>
+<td>Padding</td>
+<td>PKCS#7 or others</td>
+<td>❌ Not implemented</td>
+</tr>
+<tr>
+<td>Mode of Operation</td>
+<td>CBC, ECB, GCM, etc.</td>
+<td>❌ None used</td>
+</tr>
+<tr>
+<td>Quantum Resistance</td>
+<td>2^128 (Grover)</td>
+<td>Estimated 2^128 (Grover)</td>
+</tr>
+<tr>
+<td>NIST Compliance</td>
+<td>✅ Yes</td>
+<td>⚠️ Partial</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<div style="page-break-after: always;"></div>
+<h2 id="3-quantum-attack-simulation-with-qiskit">3. Quantum Attack Simulation with Qiskit</h2>
+<p>We implemented Grover’s algorithm in Qiskit to simulate a quantum attack on an 8-bit version of HBEA for educational demonstration.</p>
+<h3 id="execution-output-kali-linux">Execution Output (Kali Linux):</h3>
+<p><img src="fig1.png" alt="Execution"></p>
+<ul>
+<li><strong>Expected key</strong>: <code>10101010</code></li>
+<li><strong>Grover iterations</strong>: 16 (i.e., √2⁸)</li>
+</ul>
+<h3 id="output-visualization">Output Visualization:</h3>
+<p>The histogram below shows the frequency of each observed result from 1024 trials. As expected, the key <code>10101010</code> was returned most frequently (412 times), verifying Grover’s quadratic speedup over classical brute force.</p>
+<p><img src="fig2.png" alt="Grover Histogram"></p>
+<h3 id="grovers-algorithm-code-python">Grover's Algorithm Code (Python):</h3>
+<p><img src="fig3.png" alt="Grover Code1">
+<img src="fig4.png" alt="Grover Code2"></p>
+<h3 id="interpretation">Interpretation:</h3>
+<p>Grover’s simulation successfully located the expected key with high probability, confirming the algorithm’s effectiveness. In a real 256-bit implementation, Grover would still need ~2^128 operations, equating HBEA's quantum resistance to that of AES-256.</p>
+<hr>
+<div style="page-break-after: always;"></div>
+<h2 id="4-nist-compliance--security-analysis">4. NIST Compliance &amp; Security Analysis</h2>
+<table>
+<thead>
+<tr>
+<th>Criterion</th>
+<th>NIST Recommendation</th>
+<th>HBEA Evaluation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Key Size</td>
+<td>≥ 128 bits</td>
+<td>✅ 256 bits</td>
+</tr>
+<tr>
+<td>Key Generation</td>
+<td>Entropy or secure KDF</td>
+<td>⚠️ SHA-256 of email (predictable input)</td>
+</tr>
+<tr>
+<td>Randomness</td>
+<td>Cryptographically random values</td>
+<td>⚠️ Deterministic from email</td>
+</tr>
+<tr>
+<td>Permutation</td>
+<td>Strong/confusion-inducing</td>
+<td>✅ Dynamic, but deterministic</td>
+</tr>
+<tr>
+<td>Reversibility</td>
+<td>Required for decryption</td>
+<td>❌ S-box and expansion are not reversible</td>
+</tr>
+<tr>
+<td>Padding &amp; Modes</td>
+<td>Required for multi-block security</td>
+<td>❌ Not implemented</td>
+</tr>
+<tr>
+<td>Key Management</td>
+<td>Secure key storage/distribution</td>
+<td>❌ Not addressed</td>
+</tr>
+</tbody>
+</table>
+<h3 id="vulnerabilities">Vulnerabilities</h3>
+<ul>
+<li>Deterministic inputs (key, permutation) → <strong>predictable output</strong></li>
+<li>Incomplete decryption capability → <strong>not invertible</strong></li>
+<li>No IV or chaining → <strong>pattern leakage</strong></li>
+<li>No padding → <strong>fixed block vulnerabilities</strong></li>
+<li>No key handling policy → <strong>deployment risk</strong></li>
+</ul>
+<hr>
+<h2 id="5-tools--environment">5. Tools &amp; Environment</h2>
+<ul>
+<li><strong>Python 3.12</strong></li>
+<li><strong>Qiskit</strong> (<code>qiskit</code>, <code>qiskit-aer</code>)</li>
+<li><strong>Matplotlib</strong> (Grover histogram)</li>
+<li><strong>Kali Linux</strong> (Python virtualenv for testing)</li>
+<li><strong>Jupyter Notebook</strong> (HBEA code implementation &amp; testing)</li>
+<li><strong>ChatGPT</strong> (debugging support &amp; report drafting)</li>
+</ul>
+<hr>
+<h2 id="6-final-remarks">6. Final Remarks</h2>
+<p>HBEA is a solid educational cipher combining classical cryptography and quantum-resilient concepts. While it shows promising structural elements, it lacks production-grade reversibility, randomness, and compliance with NIST’s robust encryption standards.</p>
+<p><strong>Next Steps for Improvement</strong>:</p>
+<ul>
+<li>Implement secure KDFs and non-deterministic key derivation</li>
+<li>Add padding, IV, and secure modes like CBC or GCM</li>
+<li>Make transformation steps invertible for real-world use</li>
+</ul>
+
+</body>
+</html>
